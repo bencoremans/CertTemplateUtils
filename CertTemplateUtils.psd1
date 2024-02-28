@@ -1,6 +1,6 @@
 @{
     RootModule = 'CertTemplateUtils.psm1'
-    ModuleVersion = '1.0'
+    ModuleVersion = '1.0.2'
     GUID = 'c8e82f8d-13d2-4a1d-91b3-24ff8b01827d'
     Author = 'Ben Coremans'
     Description = 'A PowerShell module containing functions for managing Active Directory certificate templates.'
@@ -11,7 +11,7 @@
     FormatsToProcess = @()
     AliasesToExport = @()
     VariablesToExport = @()
-    RequiredModules = @(PSPKI)
+    RequiredModules = @('PSPKI')
     FileList = @(
         'CertTemplateUtils.psd1',
         'CertTemplateUtils.psm1',
@@ -19,6 +19,7 @@
         'ConvertTo-SerializedTemplate.ps1',
         'Get-ADCSTemplate.ps1',
         'Import-SerializedTemplate.ps1',
+        'README.md',
         'Update-CertificateTemplate.ps1'
     )
     PrivateData = @{
