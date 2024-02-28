@@ -3,8 +3,8 @@
 Returns the properties of either a single or all Active Directory Certificate Template(s).
 .DESCRIPTION
 Returns the properties of either a single or list of Active Directory Certificate Template(s)
-depending on whether a DisplayName parameter was passed.
-.PARAMETER DisplayName
+depending on whether a Name parameter was passed.
+.PARAMETER Name
 Name of an AD CS template to retrieve.
 .PARAMETER Server
 FQDN of Active Directory Domain Controller to target for the operation.
@@ -12,7 +12,7 @@ When not specified it will search for the nearest Domain Controller.
 .EXAMPLE
 PS C:\> Get-ADCSTemplate
 .EXAMPLE
-PS C:\> Get-ADCSTemplate -DisplayName PowerShellCMS
+PS C:\> Get-ADCSTemplate -Name PowerShellCMS
 .EXAMPLE
 PS C:\> Get-ADCSTemplate | Sort-Object Name | ft Name, Created, Modified
 .EXAMPLE
@@ -28,7 +28,7 @@ function Get-ADCSTemplate {
     [CmdletBinding()]
     param(
         [parameter(Position=0)]
-        [string]$DisplayName,
+        [string]$Name,
         [string]$Server = (Get-ADDomainController -Discover -ForceDiscover -Writable).HostName[0]
     )
 
@@ -48,16 +48,16 @@ function Get-ADCSTemplate {
 
     process {
         try {
-            if ($PSBoundParameters.ContainsKey('DisplayName')) {
-                $LDAPFilter = "(&(objectClass=pKICertificateTemplate)(displayName=$DisplayName))"
+            if ($PSBoundParameters.ContainsKey('Name')) {
+                $LDAPFilter = "(&(objectClass=pKICertificateTemplate)(Name=$Name))"
             } else {
                 $LDAPFilter = '(objectClass=pKICertificateTemplate)'
             }
 
             $templates = Get-ADObject -SearchScope Subtree -SearchBase $TemplatePath -LDAPFilter $LDAPFilter -Properties * -Server $Server
             if (-not $templates) {
-                if ($DisplayName) {
-                    Write-Warning "No templates found with DisplayName '$DisplayName'."
+                if ($Name) {
+                    Write-Warning "No templates found with Name '$Name'."
                 } else {
                     Write-Warning "No certificate templates found."
                 }
