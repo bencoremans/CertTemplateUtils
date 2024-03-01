@@ -42,17 +42,14 @@ The function takes certificate template objects as input and converts them into 
 
 ### `-Template`
 - **Type**: Mandatory
-- **Description**: Specifies the certificate template object or objects to be converted. Each template object should contain properties for both PSPKI (PowerShell PKI module) and ADO (Active Directory Objects) templates.
+- **Description**: Specifies the certificate template object or objects to be converted. Each template object should contain properties for PSPKI (PowerShell PKI module) templates.
 
 ## Usage Example
 
 ```powershell
-$templateObject = @{
-    templatePSPKI = Get-CertificateTemplate -Name "WebServer" -ErrorAction Stop | Select-Object *
-    templateADO = Get-ADCSTemplate -Name "WebServer" -ErrorAction Stop | Select-Object -Property name, displayName, objectClass, flags, revision, *pki*
-}
+$templatePSPKI = Get-CertificateTemplate -Name "WebServer" -ErrorAction Stop | Select-Object *
 
-ConvertTo-SerializedTemplate -Template $templateObject
+ConvertTo-SerializedTemplate -Template $templatePSPKI
 ```
 
 # Get-ADCSTemplate PowerShell Function
@@ -135,11 +132,10 @@ The `Import-SerializedTemplate` function is designed to import and register cert
 ## Usage Example
 
 ```powershell
-$templateObject = @{
-    templatePSPKI = Get-CertificateTemplate -Name "WebServer" -ErrorAction Stop | Select-Object *
-    templateADO = Get-ADCSTemplate -Name "WebServer" -ErrorAction Stop | Select-Object -Property name, displayName, objectClass, flags, revision, *pki*
-}
-$xmlString = ConvertTo-SerializedTemplate -Template $templateObject        
+$templatePSPKI = Get-CertificateTemplate -Name "WebServer" -ErrorAction Stop | Select-Object *
+
+$xmlString = ConvertTo-SerializedTemplate -Template $templatePSPKI      
+  
 Import-SerializedTemplate -XmlString $xmlString
 ```
 
