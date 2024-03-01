@@ -15,12 +15,15 @@
         Specifies the DNS name of the Active Directory server to which the changes will be applied.
         If this value is NULL, the changes will be applied to the default domain controller.
     .Example
-        $templateObject = @{
-            templatePSPKI = Get-CertificateTemplate -Name "WebServer" -ErrorAction Stop | Select-Object *
-            templateADO = Get-ADCSTemplate -Name "WebServer" -ErrorAction Stop | Select-Object -Property name, displayName, objectClass, flags, revision, *pki*
-        }
-        $xmlString = ConvertTo-SerializedTemplate -Template $templateObject        
+        $templatePSPKI = Get-CertificateTemplate -Name "WebServer" -ErrorAction Stop | Select-Object *
+
+        $xmlString = ConvertTo-SerializedTemplate -Template $templatePSPKI    
+
         Import-SerializedTemplate -XmlString $xmlString
+    .NOTES
+        The original function is made by Vadims Podans.
+    .LINK
+        https://www.sysadmins.lv/blog-en/export-and-import-certificate-templates-with-powershell.aspx
     #>
 function Import-SerializedTemplate {
     [CmdletBinding()]

@@ -23,6 +23,9 @@ PS C:\> ###View template permissions
 ConvertFrom-SddlString -Sddl (Get-ADCSTemplate pscms).nTSecurityDescriptor.sddl -Type ActiveDirectoryRights
 .NOTES
 Requires Enterprise Administrator permissions, since this touches the AD Configuration partition.
+
+The original function is made by Ashley McGlone (GoateePFE):
+https://github.com/GoateePFE/ADCSTemplate
 #>
 function Get-ADCSTemplate {
     [CmdletBinding()]

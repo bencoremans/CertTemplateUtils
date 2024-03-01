@@ -1,6 +1,6 @@
 @{
     RootModule = 'CertTemplateUtils.psm1'
-    ModuleVersion = '1.0.2'
+    ModuleVersion = '1.0.3'
     GUID = 'c8e82f8d-13d2-4a1d-91b3-24ff8b01827d'
     Author = 'Ben Coremans'
     Description = 'A PowerShell module containing functions for managing Active Directory certificate templates.'

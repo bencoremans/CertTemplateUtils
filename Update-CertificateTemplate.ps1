@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+Updates the attributes of an existing certificate template in Active Directory.
+
+.DESCRIPTION
+This function updates an existing certificate template in Active Directory with desired attribute values. It first retrieves the current state of the template, compares it with the desired state, and applies any differences.
+
+.PARAMETER Name
+The name of the certificate template to update.
+
+.PARAMETER DesiredTemplateJson
+A JSON string representing the desired state of the certificate template.
+
+.PARAMETER Server
+(Optional) The domain controller to connect to. If not specified, the function discovers and uses a writable domain controller.
+
+.EXAMPLE
+Update-CertificateTemplate -Name "WebServerTemplate" -DesiredTemplateJson $templateJson
+This example updates the "WebServerTemplate" with the desired attributes specified in the $templateJson string.
+#>
 Function Update-CertificateTemplate {
     [CmdletBinding()]
     param(
